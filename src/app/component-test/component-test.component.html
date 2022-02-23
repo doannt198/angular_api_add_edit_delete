@@ -1,0 +1,52 @@
+<div class="center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4" >
+                <h1>{{nameinput}}</h1>
+                <h3>{{ageinput}}</h3>
+            </div>
+            <div class="col-lg-4">
+                <p>component-test works!</p>
+                <h3 [hidden]="forgot">{{en}}</h3>
+                <h3 [hidden]="forgot">{{vi}}</h3>
+                <a href="#"><img [hidden]="forgot" [src]="urlImages" alt="Demo" [ngStyle]="sizeImage"></a>
+                <br><br>
+                <button (click)="showToggle();"> Toggel</button>
+                <br><br>
+                <div *ngIf="isShowForm">
+                    <input type="text" placeholder="English" [(ngModel)]='newEn'> <br><br>
+                    <input type="text" placeholder="English" [(ngModel)]='newVn'> <br><br>
+                    <button (click)="addForm()">Thêm </button>
+                </div>
+                <button (click)="isShowForm=true" *ngIf="!isShowForm">Thêm </button>
+                <br><br>
+                <input type="text" placeholder="Nhập text" [(ngModel)]="name">
+                <div>Text vừa mới nhập là:{{name}}</div>
+                <div class="form-group">
+                    <select [(ngModel)]="showfilterForm">
+                        <option value="XEM_TAT_CA"> Xem tất cả bản ghi</option>
+                        <option value="XEM_DA_NHO">Xem bản ghi đã nhớ</option>
+                        <option value="XEM_CHUA_NHO">Xem bản ghi chưa nhớ</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div *ngFor="let word of arrWords">
+                    <div *ngIf="showfilterForm==='XEM_TAT_CA' || (showfilterForm==='XEM_DA_NHO' && word.memorized) ||(showfilterForm==='XEM_CHUA_NHO' && !word.memorized)">
+                        <ul>
+                            <li [style.color]="word.memorized ? 'green':'red'">
+                                {{word.en}}
+                            </li>
+                            <li>
+                                {{word.vn}}
+                            </li>
+                            <button (click)="deleteForm(word.id)"> Xóa</button>
+                            <button (click)="word.memorized=!word.memorized"> {{word.memorized ? 'Đã đọc' :' Chưa đọc '}}</button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
